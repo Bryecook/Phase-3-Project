@@ -31,6 +31,20 @@ Question.create(difficulty: "easy", game_id: Game.first.id, body: "What sound do
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "What is Plankton's full name?", answer:"Sheldon James Plankton")
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "Who was Spongebob's idol?", answer:"Mermaid Man")
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "Where does Patrick live?", answer:"Under a rock.")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What was Sponebob's driving school teacher name?", answer: "Mrs.Puff")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "In the theme song, Spongebob is described with three adjectives. What are they?", answer: "Absorbent, yellow and porous")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What US state did Sandy come from?", answer: "Texas")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What does Spongebob live in?", answer:"A pineapple")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "How many arms/legs does Squidward have?", answer:"6")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What is the name of the town Spongebob lives in?", answer:"Bikini Bottom")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What was The Chum Bucket's most famous menu item?", answer:"The Chum Burger")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What color is Spongebobs tie", answer:"Red")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "Who tries to get Mr.Krabs' recipe?", answer:"Plankton")
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What kind of house does Squidward live in?", answer: "An Easter Island Head")
+
+
+
+
 
 
 
@@ -46,6 +60,16 @@ Question.create(difficulty: "hard", game_id: Game.second.id, body: "What shape w
 Question.create(difficulty: "hard", game_id: Game.second.id, body: "What is Sandy the best at?", answer:"Karate")
 Question.create(difficulty: "hard", game_id: Game.second.id, body: "What does Squidward paint pictures of the most?", answer:"Himself")
 Question.create(difficulty: "hard", game_id: Game.second.id, body: "What's the name of the place Spongebob and Patrick go jellyfishing?", answer:"Jellyfish Fields")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "How did Spongebob get his Pineapple home?", answer: "It rolls off of a boat")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "What Utensil doe Spongebob use the most at his job?", answer: "A spatula")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "How much does Patrick weigh?", answer:"2 ounces")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "When is the official annoy Squidward day?", answer:"The 15th of every month")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "What was the name of Squidward's arch enemy?", answer:"Squilliam Fancyson")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "What was one thing Patrick was a professional at?", answer:"Doing absolutely nothing.")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "Who was the obly character who wore shoes?", answer:"Spongebob")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "Who takes the guests coats?", answer:"Gary")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "In Sailor Mouth, how many bad words are there?", answer:"13")
+Question.create(difficulty: "hard", game_id: Game.second.id, body: "What color is the flying dutchman?", answer:"Green")
 
 
 
