@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :rounds
-  resources :games
-  resources :questions
-  resources :users
+
+  namespace :api do
+    namespace :v1 do
+      resources :questions, :rounds, :questions, :users
+    end
+  end
+
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
