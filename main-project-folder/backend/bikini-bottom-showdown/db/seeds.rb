@@ -44,12 +44,6 @@ Question.create(difficulty: "easy", game_id: Game.first.id, body: "What kind of 
 
 
 
-#create choice
-
-
-#add column on migrate file-- need be an array 
-
-
 
 
 #questions game2 hard
