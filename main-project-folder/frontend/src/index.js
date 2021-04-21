@@ -1,3 +1,8 @@
+
+
+usersUrl = `http://localhost:3000/api/v1/users`;
+
+
 let login = false;
 let array;
 let questionArray;
@@ -15,18 +20,54 @@ const menuRender = () => {
             div.style.display = "none";
         }
         console.log('clicked')
-        createLoginForm()
+        loadForm()
     })
 }
 
-const createLoginForm = () => {
-    div = document.querySelector('.container')
-    form = document.querySelector('.login-form')
-    form.addEventListener('submit', (e) => {
+
+
+
+//get all users
+const fetchUsers = () => {
+fetch(usersUrl)
+.then(res => res.json())
+.then(userData => console.log(userData))
+}
+
+
+const loadForm = (e) => {
+    let nameForm = document.querySelector('.login-form')
+    nameForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        console.log("login clicked")
+        let newName = e.target.name.value
+        console.log(newName)
+        fetch(usersUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'Accept':'application/json'
+            },
+            body: JSON.stringify({
+                name: newName
+            })
+        })
+        .then(res => res.json())
+        .then(newUser => console.log(newUser))
+        //create function that verifies if user is logged in
     })
 }
+
+const checksUserLoggedIn = () => {
+    let un = document.querySelector(`.login-form`).elements["name"]
+    // let un = document.login-form.nameForm.value
+    let username = "username"
+          if (un == username) {
+        alert("logged in succesfully!")}
+        else {
+        alert("Must enter usuername")
+        }
+}
+
 
 const difficultySelection = () => {
     div = document.querySelector('#menu')
@@ -174,5 +215,32 @@ const renderQuiz = (question) => {
     }
 }
 
+const timer = (difficultySelection, easyQuiz) => {
+    //once quiz is initiated start timer
+    //insert into easy & difficult function
+    let timer = document.querySelector("timer")
+    timer.innerHTML = '<div>${count}</div>'
+    let total_seconds = 60*2
+    let timeLeft = 120; // In seconds
+    let timerId = setInterval(countdown, 1000);
+    
+    function countdown() {
+        if (timeLeft == -1) {
+            clearTimeout(timerId);
+            // do something
+        } else {
+            console.log(timeLeft + ' seconds remaining');
+            timeLeft--;
+        }
+    }
+    countdown()
+}
+
+
 menuRender()
 difficultySelection()
+loadForm()
+checksUserLoggedIn()
+
+
+
