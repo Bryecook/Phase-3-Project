@@ -1,4 +1,7 @@
 let login = false;
+let array;
+let questionArray;
+let i = 0;
 
 const menuRender = () => {
     loginBtn = document.querySelector('#loginbtn')
@@ -52,9 +55,123 @@ const difficultySelection = () => {
 }
 
 const easyQuiz = () => {
-    // fetch array of easy question objects with .filter
-    // select 10 random questions and put into array
-    // forEach thru them giving points to the round if correct answer is select?
+    fetch("http://localhost:3000/api/v1/questions")
+    .then(res => res.json())
+    .then(data => array = data)
+    var filteredArray = array.filter(function (el){
+        return el.difficulty == "easy";
+    });
+   questionArray = getRandomQuestions(filteredArray, 10)
+ 
+   renderQuiz(questionArray[0])
+}
+
+const hardQuiz = () => {
+    fetch("http://localhost:3000/api/v1/questions")
+    .then(res => res.json())
+    .then(data => array = data)
+    var filteredArray = array.filter(function (el){
+        return el.difficulty == "hard";
+    });
+   questionArray = getRandomQuestions(filteredArray, 10)
+ 
+   renderQuiz(questionArray[0])
+}
+
+const getRandomQuestions = (random, n) => {
+    var randomArray = random.sort(() => Math.random() - Math.random()).slice(0, n)
+    return randomArray
+}
+
+const renderQuiz = (question) => {
+    if (i < questionArray.length) {
+    div = document.querySelector('#menu')
+    div.innerHTML = ''
+    header = document.createElement('h2')
+    header.innerHTML = `${question.body}`
+    header.style.color = "green"
+    
+    btnA = document.createElement('button')
+    btnA.innerText = question.choices[0]
+
+    btnB = document.createElement('button')
+    btnB.innerText = question.choices[1]
+
+    btnC = document.createElement('button')
+    btnC.innerText = question.choices[2]
+    
+    continueBtn = document.createElement('button')
+    continueBtn.innerText = "Continue to next question"
+    continueBtn.addEventListener('click', (e) => {
+        i++
+        renderQuiz(questionArray[i])
+
+    })
+    div.append(header, btnA, btnB, btnC)
+
+
+    btnA.addEventListener('click', (e) => {
+        if (btnA.innerText == question.answer) {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Correct!"
+
+            div.append(header, continueBtn)
+            
+        } else {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Incorrect :("
+
+            h3 = document.createElement('h3')
+            h3.innerText = `The correct answer was ${question.answer}`
+
+            div.append(header, h3, continueBtn)
+        }
+    })
+
+    btnB.addEventListener('click', (e) => {
+        if (btnB.innerText == question.answer) {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Correct!"
+
+            div.append(header, continueBtn)
+            
+        } else {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Incorrect :("
+            h3 = document.createElement('h3')
+            h3.innerText = `The correct answer was ${question.answer}`
+
+            div.append(header, h3, continueBtn)
+        }
+    })
+
+    btnC.addEventListener('click', (e) => {
+        if (btnC.innerText == question.answer) {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Correct!"
+
+            div.append(header, continueBtn)
+            
+        } else {
+            div.innerHTML = ''
+            header = document.createElement('h2')
+            header.innerText = "Incorrect :("
+
+            h3 = document.createElement('h3')
+            h3.innerText = `The correct answer was ${question.answer}`
+
+            div.append(header, h3, continueBtn)
+        }
+    })
+
+    } else {
+        console.log('done')
+    }
 }
 
 menuRender()
