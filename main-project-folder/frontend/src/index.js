@@ -21,10 +21,6 @@ const menuRender = () => {
         loadForm()
     })
 }
-
-
-
-
 //get all users
 const fetchUsers = () => {
 fetch(usersUrl)
