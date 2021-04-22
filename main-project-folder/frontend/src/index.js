@@ -8,6 +8,7 @@ let round;
 let allUsers;
 let usernameArray =[];
 let currentUser;
+let userRounds = [];
 
 const menuRender = () => {
     loginBtn = document.querySelector('#loginbtn')
@@ -20,7 +21,7 @@ const menuRender = () => {
         } else {
         loginDiv.style.display = "none";
         }
-        formTest()
+        setupForm()
     })
 }
 
@@ -30,11 +31,27 @@ fetch(usersUrl)
 .then(userData => userArray(userData))
 }
 
+const fetchRounds = () => {
+    fetch("http://localhost:3000/api/v1/rounds")
+    .then(res => res.json())
+    .then(data => filterRounds(data))
+    }
+
+const filterRounds = (data) => {
+    userRounds = data.filter(function (el){
+        return el.user_id == currentUser.id
+    })
+    viewPastRounds(userRounds)
+}
+
+const makeRoundsArray = (object) =>{
+
+}
 const userArray = (data) => {
     allUsers = data
 }
 
-const formTest = () => {
+const setupForm = () => {
     let nameForm = document.querySelector(`.login-form`)
     nameForm.addEventListener("submit", (e) => {
         e.preventDefault()
@@ -61,7 +78,6 @@ const makeUsernameArray = (object) => {
 }
 
 const createUser = (input) => {
-    console.log('im in the create user func')
     fetch(usersUrl, {
         method: "POST",
         headers: {
@@ -191,7 +207,6 @@ const getRandomQuestions = (random, n) => {
 }
 
 const renderQuiz = (question) => {
-    console.log(round)
     if (i < questionArray.length) {
     questionChoices = JSON.parse(question.choices)
     div = document.querySelector('#menu')
@@ -279,8 +294,26 @@ const renderQuiz = (question) => {
     })
 
     } else {
+        addScore()
         renderScore()
     }
+}
+
+const addScore = () => {
+    newScore = round.score
+
+    fetch(`http://localhost:3000/api/v1/rounds/${round.id}`, {
+        method: "PATCH",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+        },
+        body: JSON.stringify({
+            score: newScore
+        })
+    })
+    .then(res => res.json())
+    .then(data => data)
 }
 
 const renderScore = () => {
@@ -289,12 +322,48 @@ const renderScore = () => {
     retryBtn.innerText = "Try again?"
     endTitle = document.createElement('h2')
     endTitle.innerText = `Great job ${currentUser.username}! Your score: ${round.score}`
-    div.append(endTitle, retryBtn)
+    logoutBtn = document.createElement('button')
+    logoutBtn.innerText = "Logout"
+    pastRoundsBtn = document.createElement('button')
+    pastRoundsBtn.innerText = "View Past Rounds"
+    div.append(endTitle, retryBtn, pastRoundsBtn, logoutBtn)
 
     retryBtn.addEventListener('click', (e) =>{
         i = 0
         difficultySelection()
     })
+
+    logoutBtn.addEventListener('click', (e) =>{
+        location.reload()
+    })
+
+    pastRoundsBtn.addEventListener('click', (e) => {
+        fetchRounds()
+    })
+}
+
+const roundList = (object) => {
+    div = document.querySelector('#menu')
+    li = document.createElement('li')
+    li.innerText = object.score
+    // deleteRoundBtn = document.createElement('button')
+    // deleteRoundBtn.innerText = "X"
+    // deleteRoundBtn.addEventListener('click', (e) => {
+    //     fetch(`http://localhost:3000/api/v1/rounds/${round.id}`,{
+    //         method: "DELETE"
+    //     })
+    //     fetchRounds()
+    // })
+    // li.append(deleteRoundBtn)
+    div.append(li)
+}
+const viewPastRounds = (userRounds) => {
+    div = document.querySelector('#menu')
+    div.innerHTML = ''
+    scorePageTitle = document.createElement('h1')
+    scorePageTitle.innerText = "Past Scores"
+    div.append(scorePageTitle)
+    userRounds.forEach(roundList)
 }
 
 
