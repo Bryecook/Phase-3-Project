@@ -1,10 +1,5 @@
 class Api::V1::UsersController < ApplicationController
     def index
-<<<<<<< HEAD
-        users = User.all
-        render json: users
-    end
-=======
         user = User.all
         render json: user
     end
@@ -15,5 +10,4 @@ class Api::V1::UsersController < ApplicationController
       end
 
 
->>>>>>> corisbranch2
 end

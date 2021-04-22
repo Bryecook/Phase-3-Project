@@ -3,4 +3,5 @@ class RoundsController < ApplicationController
         rounds = Round.all 
         render json: rounds
     end
+
 end

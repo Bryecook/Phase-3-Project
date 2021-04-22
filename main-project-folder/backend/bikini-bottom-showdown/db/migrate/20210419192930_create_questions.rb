@@ -5,7 +5,7 @@ class CreateQuestions < ActiveRecord::Migration[6.1]
       t.integer :game_id
       t.string :body
       t.string :answer
-      t.text :choices, array: true
+      t.text :choices, array:true
       t.timestamps
     end
   end

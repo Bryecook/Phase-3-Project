@@ -1,25 +1,23 @@
-
-
 usersUrl = `http://localhost:3000/api/v1/users`;
-
 
 let login = false;
 let array;
 let questionArray;
 let i = 0;
+let round;
+let allUsers;
+
 
 const menuRender = () => {
     loginBtn = document.querySelector('#loginbtn')
-    div = document.querySelector('.container')
+    loginDiv = document.querySelector('#login')
     loginBtn.addEventListener('click', (e)=> {
         e.preventDefault()
-        login = !login;
-        if (login) {
-            div.style.display = "block";
+        if (loginDiv.style.display == "none") {
+        loginDiv.style.display = "inline-grid";
         } else {
-            div.style.display = "none";
+            loginDiv.style.display = "none";
         }
-        console.log('clicked')
         loadForm()
     })
 }
@@ -31,24 +29,28 @@ const menuRender = () => {
 const fetchUsers = () => {
 fetch(usersUrl)
 .then(res => res.json())
-.then(userData => console.log(userData))
+.then(userData => userArray(userData))
 }
 
+const userArray = (data) => {
+    let allUsers = data
+    console.log(allUsers)
+}
 
 const loadForm = (e) => {
     let nameForm = document.querySelector('.login-form')
     nameForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        let newName = e.target.name.value
-        console.log(newName)
+        let newName = e.target[0].value
+        // console.log(e.target[0].value)
         fetch(usersUrl, {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
-                'Accept':'application/json'
+                'Accept':'application/json',
             },
             body: JSON.stringify({
-                name: newName
+                username: newName
             })
         })
         .then(res => res.json())
@@ -68,6 +70,26 @@ const checksUserLoggedIn = () => {
         }
 }
 
+const createEasyRound = () =>{
+    const newRound = {
+        user_id: 1,
+        game_id: 1
+    }
+    fetch("http://localhost:3000/api/v1/rounds", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+        },
+        body: JSON.stringify(newRound)
+    })
+    .then(res => res.json())
+    .then(saveNewRound => saveRound(saveNewRound))
+}
+
+const saveRound = (save) => {
+    round = save
+}
 
 const difficultySelection = () => {
     div = document.querySelector('#menu')
@@ -80,6 +102,7 @@ const difficultySelection = () => {
     easyButton.innerText = "Easy Quiz"
     easyButton.addEventListener('click', (e) => {
         e.preventDefault()
+        createEasyRound()
         easyQuiz()
     })
 
@@ -88,19 +111,30 @@ const difficultySelection = () => {
     hardButton.innerText = "Hard Quiz"
     hardButton.addEventListener('click', (e) => {
         e.preventDefault()
+        createHardRound()
         hardQuiz()
     })
 
     br = document.createElement('br')
     div.append(header, easyButton, br, hardButton)
 }
+const filterEasyData = (data) => {
+    var filteredArray = data.filter(function (el){
+        return el.difficulty == "easy";
+    });
+        questionArray = getRandomQuestions(filteredArray, 10)
+ 
+        renderQuiz(questionArray[0])
+}
 
 const easyQuiz = () => {
     fetch("http://localhost:3000/api/v1/questions")
     .then(res => res.json())
-    .then(data => array = data)
-    var filteredArray = array.filter(function (el){
-        return el.difficulty == "easy";
+    .then(data => filterEasyData(data))
+}
+const filterHardData = (data) => {
+    var filteredArray = data.filter(function (el){
+        return el.difficulty == "hard";
     });
    questionArray = getRandomQuestions(filteredArray, 10)
  
@@ -110,13 +144,7 @@ const easyQuiz = () => {
 const hardQuiz = () => {
     fetch("http://localhost:3000/api/v1/questions")
     .then(res => res.json())
-    .then(data => array = data)
-    var filteredArray = array.filter(function (el){
-        return el.difficulty == "hard";
-    });
-   questionArray = getRandomQuestions(filteredArray, 10)
- 
-   renderQuiz(questionArray[0])
+    .then(data => filterHardData(data))
 }
 
 const getRandomQuestions = (random, n) => {
@@ -125,7 +153,9 @@ const getRandomQuestions = (random, n) => {
 }
 
 const renderQuiz = (question) => {
+    console.log(round)
     if (i < questionArray.length) {
+    questionChoices = JSON.parse(question.choices)
     div = document.querySelector('#menu')
     div.innerHTML = ''
     header = document.createElement('h2')
@@ -133,14 +163,14 @@ const renderQuiz = (question) => {
     header.style.color = "green"
     
     btnA = document.createElement('button')
-    btnA.innerText = question.choices[0]
+    btnA.innerText = questionChoices[0]
 
     btnB = document.createElement('button')
-    btnB.innerText = question.choices[1]
+    btnB.innerText = questionChoices[1]
 
     btnC = document.createElement('button')
-    btnC.innerText = question.choices[2]
-    
+    btnC.innerText = questionChoices[2]
+
     continueBtn = document.createElement('button')
     continueBtn.innerText = "Continue to next question"
     continueBtn.addEventListener('click', (e) => {
@@ -236,7 +266,7 @@ const timer = (difficultySelection, easyQuiz) => {
     countdown()
 }
 
-
+fetchUsers()
 menuRender()
 difficultySelection()
 loadForm()
