@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_193002) do
     t.integer "game_id"
     t.string "body"
     t.string "answer"
+    t.string "choices"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
