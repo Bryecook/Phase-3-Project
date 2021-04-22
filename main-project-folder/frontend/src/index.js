@@ -74,12 +74,9 @@ const setUpForm = () => {
             alert("Welcome" + loginName)
             let body = document.querySelector("body")
             body.innerHTML = "Hello " + loginName;
-        }
-        
-        
+        } 
         }
     }
-    
     
 
 const difficultySelection = () => {
