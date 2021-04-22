@@ -1,43 +1,54 @@
+body, html{
+
+  background-image: url(https://images7.alphacoders.com/108/thumbbig-1081503.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+
 .container {
     padding: 1rem;
     width: stretch;
-    height: auto;
+    height: 50%;
     display: none;
     background: #515DA2;
     opacity: .8;
+    margin: 0 auto;
   }
 
 .card {
+ 
+    align-items: center;
     text-align: center;
-    border: purple solid 5px;
+    border-color: black 20px;
     padding: 1rem;
     width: 15rem;
     height: 25rem;
     display: none;
     margin: 1rem 2rem;
-    background-color: lightgray
+    background-color: #999966;
+    
   }
 
 .btn-easy {
   position: relative;
-  background-color: green;
+  background-color: yellow;
   border: none;
   border-radius: 5px;
   height: 3rem;
   width: max-content;
-  color: whitesmoke;
+  color: black;
   font-size: 18px;
   justify-self: center;
 }
 
 .btn-hard {
   position: relative;
-  background-color: red;
+  background-color: yellow;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 3rem;
   width: max-content;
-  color: whitesmoke;
+  color: black;
   font-size: 18px;
   justify-self: center;
 }
@@ -48,16 +59,52 @@
   margin: auto;
 }
 
-/* input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-} */
 
-.login {
-  border: 3px solid #f1f1f1;
-  display: none
+#loginbtndiv{
+  text-align: center;
 }
+.login {
+  display: none;
+  width: 500px;
+  margin: 60px auto 30px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1), 0 3px 2px rgba(0,0,0,0.1);
+
+}
+
+input {
+  width: 100%;
+}
+
+.submit {
+  text-align: center;
+  color: black;
+  background-color: rgb(180, 173, 173);
+  border-radius: 10%;
+
+}
+
+
+
+#loginbtn {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 2em;
+  padding: 0px 15px;
+  margin: 0 8px 0 calc(16px / 2);
+  border-width: 1px;
+  border-style: solid;
+  border-radius:50%;
+  min-height: calc( 0px + 2em + 35px );
+  margin-top: 8px;
+}
+
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+
+
