@@ -5,8 +5,8 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        user = User.create(username: user[:username]) 
-          render json: user
+        user = User.create(username: params[:username]) 
+        render json: user
       end
 
 

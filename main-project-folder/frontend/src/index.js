@@ -6,7 +6,7 @@ let questionArray;
 let i = 0;
 let round;
 let allUsers;
-
+let usernameArray =[];
 let currentUser;
 
 const menuRender = () => {
@@ -16,38 +16,77 @@ const menuRender = () => {
         e.preventDefault()
         if (loginDiv.style.display == "none") {
         loginDiv.style.display = "inline-grid";
+        loginBtn.style.display = "none"
         } else {
-            loginDiv.style.display = "none";
+        loginDiv.style.display = "none";
         }
-        loadForm()
+        formTest()
     })
 }
-//get all users
+
 const fetchUsers = () => {
 fetch(usersUrl)
 .then(res => res.json())
 .then(userData => userArray(userData))
 }
 
-const setUpForm = () => {
+const userArray = (data) => {
+    allUsers = data
+}
+
+const formTest = () => {
     let nameForm = document.querySelector(`.login-form`)
     nameForm.addEventListener("submit", (e) => {
         e.preventDefault()
-        createNewUser(nameForm)
+        checkExisting(nameForm)
     })
-    
-    
-    const createNewUser = nameForm => {
-    console.log(nameForm.username.value)
-    
-        let newUser = {
-            username: nameForm.username.value
-        }
+}
 
+const checkExisting = (nameForm) => {
+    let input = nameForm.username.value
+    allUsers.forEach(makeUsernameArray)
+    if (usernameArray.find(element => element == input)) {
+         currentUser = allUsers.filter(function (el){
+             return el.username == `${input}`
+         })[0]
+         difficultySelection()
+         login = true
+    } else {
+        createUser(input)
+    }
+}
+
+const makeUsernameArray = (object) => {
+    usernameArray.push(object.username)
+}
+
+const createUser = (input) => {
+    console.log('im in the create user func')
+    fetch(usersUrl, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+        },
+        body: JSON.stringify({
+            username: input
+        })
+    })
+    .then(res => res.json())
+    .then(newUser => setNewAsCurrent(newUser))
+}
+
+const setNewAsCurrent = (newUser) =>{
+    currentUser = newUser
+    login = true
+    difficultySelection()
+}
+    
 const createEasyRound = () =>{
     const newRound = {
-        user_id: 1,
-        game_id: 1
+        user_id: currentUser.id,
+        game_id: 1,
+        score: 0
     }
     fetch("http://localhost:3000/api/v1/rounds", {
         method: "POST",
@@ -61,46 +100,37 @@ const createEasyRound = () =>{
     .then(saveNewRound => saveRound(saveNewRound))
 }
 
+const createHardRound = () =>{
+    const newRound = {
+        user_id: currentUser.id,
+        game_id: 2,
+        score: 0
+    }
+    fetch("http://localhost:3000/api/v1/rounds", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+        },
+        body: JSON.stringify(newRound)
+    })
+    .then(res => res.json())
+    .then(saveNewRound => saveRound(saveNewRound))
+}
+
+
 const saveRound = (save) => {
     round = save
-}
-    const findThisUser = () => {
-        fetch(UsersUrl),
-            {
-            method: 'post',
-            headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-            },
-            body: JSON.stringify(user)
-            
-        }
-            .then(response => response.json())
-            .then(user => getData.forEach(user))
-                (username == userData[i].username) 
-                displayCurrentUser(findThisUser)
-    }
-    
-        const displayCurrentUser = (user, e) => {
-            currentUser = users.username 
-            console.log(current_user)
-            fetch(`http://localhost:3000/api/v1/users/${user.id}`
-            .then(res => res.json())
-            .then(user => loginSuccess(user))
-            )
-        
-        const loginSuccess = (user, e) => {
-            let loginName = currentUser
-            alert("Welcome" + loginName)
-            let body = document.querySelector("body")
-            body.innerHTML = "Hello " + loginName;
-        } 
-        }
-    }
 }
 
 const difficultySelection = () => {
     div = document.querySelector('#menu')
+    div.innerHTML = ''
+    div.style.display = "inline-grid"
+    loginBtnDiv = document.querySelector('#loginbtndiv')
+    loginBtnDiv.style.display = "none"
+    username = document.createElement('h1')
+    username.innerText = `Welcome ${currentUser.username}!`
     header = document.createElement('h2')
     header.innerText = "Select difficulty!"
     header.style.color = "Purple"
@@ -124,10 +154,10 @@ const difficultySelection = () => {
     })
 
     br = document.createElement('br')
-    div.append(header, easyButton, br, hardButton)
+    div.append(username, header, easyButton, br, hardButton)
 }
 const filterEasyData = (data) => {
-    var filteredArray = data.filter(function (el){
+    let filteredArray = data.filter(function (el){
         return el.difficulty == "easy";
     });
         questionArray = getRandomQuestions(filteredArray, 10)
@@ -141,7 +171,7 @@ const easyQuiz = () => {
     .then(data => filterEasyData(data))
 }
 const filterHardData = (data) => {
-    var filteredArray = data.filter(function (el){
+    let filteredArray = data.filter(function (el){
         return el.difficulty == "hard";
     });
    questionArray = getRandomQuestions(filteredArray, 10)
@@ -156,7 +186,7 @@ const hardQuiz = () => {
 }
 
 const getRandomQuestions = (random, n) => {
-    var randomArray = random.sort(() => Math.random() - Math.random()).slice(0, n)
+    let randomArray = random.sort(() => Math.random() - Math.random()).slice(0, n)
     return randomArray
 }
 
@@ -194,7 +224,7 @@ const renderQuiz = (question) => {
             div.innerHTML = ''
             header = document.createElement('h2')
             header.innerText = "Correct!"
-
+            round.score += 1
             div.append(header, continueBtn)
             
         } else {
@@ -214,7 +244,7 @@ const renderQuiz = (question) => {
             div.innerHTML = ''
             header = document.createElement('h2')
             header.innerText = "Correct!"
-
+            round.score += 1
             div.append(header, continueBtn)
             
         } else {
@@ -233,7 +263,7 @@ const renderQuiz = (question) => {
             div.innerHTML = ''
             header = document.createElement('h2')
             header.innerText = "Correct!"
-
+            round.score += 1
             div.append(header, continueBtn)
             
         } else {
@@ -249,9 +279,24 @@ const renderQuiz = (question) => {
     })
 
     } else {
-        console.log('done')
+        renderScore()
     }
 }
+
+const renderScore = () => {
+    div.innerHTML = ''
+    retryBtn = document.createElement('button')
+    retryBtn.innerText = "Try again?"
+    endTitle = document.createElement('h2')
+    endTitle.innerText = `Great job ${currentUser.username}! Your score: ${round.score}`
+    div.append(endTitle, retryBtn)
+
+    retryBtn.addEventListener('click', (e) =>{
+        i = 0
+        difficultySelection()
+    })
+}
+
 
 const timer = (difficultySelection, easyQuiz) => {
     //once quiz is initiated start timer
@@ -276,8 +321,4 @@ const timer = (difficultySelection, easyQuiz) => {
 
 fetchUsers()
 menuRender()
-difficultySelection()
-
-
-
 

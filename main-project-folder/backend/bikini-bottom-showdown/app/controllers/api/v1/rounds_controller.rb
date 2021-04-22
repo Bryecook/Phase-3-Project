@@ -5,6 +5,7 @@ class Api::V1::RoundsController < ApplicationController
     end
     
     def create
-        round = Round.create(user_id: )
-    end 
+        round = Round.create(user_id: params[:user_id], game_id: params[:game_id], score: params[:score]) 
+        render json: round
+    end
 end
