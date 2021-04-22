@@ -7,6 +7,7 @@ let i = 0;
 let round;
 let allUsers;
 
+let currentUser;
 
 const menuRender = () => {
     loginBtn = document.querySelector('#loginbtn')
@@ -28,43 +29,20 @@ fetch(usersUrl)
 .then(userData => userArray(userData))
 }
 
-const userArray = (data) => {
-    let allUsers = data
-    console.log(allUsers)
-}
-
-const loadForm = (e) => {
-    let nameForm = document.querySelector('.login-form')
-    nameForm.addEventListener('submit', (e) => {
+const setUpForm = () => {
+    let nameForm = document.querySelector(`.login-form`)
+    nameForm.addEventListener("submit", (e) => {
         e.preventDefault()
-        let newName = e.target[0].value
-        // console.log(e.target[0].value)
-        fetch(usersUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json',
-                'Accept':'application/json',
-            },
-            body: JSON.stringify({
-                username: newName
-            })
-        })
-        .then(res => res.json())
-        .then(newUser => console.log(newUser))
-        //create function that verifies if user is logged in
+        createNewUser(nameForm)
     })
-}
-
-const checksUserLoggedIn = () => {
-    let un = document.querySelector(`.login-form`).elements["name"]
-    // let un = document.login-form.nameForm.value
-    let username = "username"
-          if (un == username) {
-        alert("logged in succesfully!")}
-        else {
-        alert("Must enter usuername")
+    
+    
+    const createNewUser = nameForm => {
+    console.log(nameForm.username.value)
+    
+        let newUser = {
+            username: nameForm.username.value
         }
-}
 
 const createEasyRound = () =>{
     const newRound = {
@@ -85,6 +63,40 @@ const createEasyRound = () =>{
 
 const saveRound = (save) => {
     round = save
+}
+    const findThisUser = () => {
+        fetch(UsersUrl),
+            {
+            method: 'post',
+            headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            },
+            body: JSON.stringify(user)
+            
+        }
+            .then(response => response.json())
+            .then(user => getData.forEach(user))
+                (username == userData[i].username) 
+                displayCurrentUser(findThisUser)
+    }
+    
+        const displayCurrentUser = (user, e) => {
+            currentUser = users.username 
+            console.log(current_user)
+            fetch(`http://localhost:3000/api/v1/users/${user.id}`
+            .then(res => res.json())
+            .then(user => loginSuccess(user))
+            )
+        
+        const loginSuccess = (user, e) => {
+            let loginName = currentUser
+            alert("Welcome" + loginName)
+            let body = document.querySelector("body")
+            body.innerHTML = "Hello " + loginName;
+        } 
+        }
+    }
 }
 
 const difficultySelection = () => {
@@ -265,8 +277,7 @@ const timer = (difficultySelection, easyQuiz) => {
 fetchUsers()
 menuRender()
 difficultySelection()
-loadForm()
-checksUserLoggedIn()
+
 
 
 
