@@ -132,8 +132,8 @@ const difficultySelection = () => {
     username = document.createElement('h1')
     username.innerText = `Welcome ${currentUser.username}!`
     header = document.createElement('h2')
-    header.innerText = "Select difficulty!"
-    header.style.color = "Purple"
+    header.innerText = "Select difficulty:"
+    header.style.color = "Black"
 
     easyButton = document.createElement('button')
     easyButton.className = "btn-easy"
