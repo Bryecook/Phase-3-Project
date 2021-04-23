@@ -9,7 +9,6 @@ class Api::V1::UsersController < ApplicationController
         render json: user
     end
 
-<<<<<<< HEAD
     def show
         user = User.find(params[:id])
         render json: user
@@ -20,7 +19,4 @@ class Api::V1::UsersController < ApplicationController
         user.destroy
         render json: user
     end
-=======
-    
->>>>>>> corisbranch5
 end

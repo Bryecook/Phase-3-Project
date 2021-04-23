@@ -37,7 +37,7 @@ Question.create(difficulty: "easy", game_id: Game.first.id, body: "What US state
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "What does Spongebob live in?", answer:"A pineapple", choices: [ "A coconut", "A pineapple", "A seashell"])
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "How many arms/legs does Squidward have?", answer:"6", choices: ["8", "4", "6"])
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "What is the name of the town Spongebob lives in?", answer:"Bikini Bottom", choices: ["Bikini Bottom","Flipflop Falls","Snorkel City" ])
-Question.create(difficulty: "easy", game_id: Game.first.id, body: "What was The Chum Bucket's most famous menu item?", answer:"The Chum Burger", choices: ["Chum Fries", "Chum Fries", "Chum Burger"])
+Question.create(difficulty: "easy", game_id: Game.first.id, body: "What was The Chum Bucket's most famous menu item?", answer:"The Chum Burger", choices: ["Chum Fries", "Chum Shake", "The Chum Burger"])
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "What color is Spongebobs tie", answer:"Red", choices: ["Black","Yellow", "Red"])
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "Who tries to get Mr.Krabs' recipe?", answer:"Plankton", choices: ["Spongebob", "Squidward", "Plankton"])
 Question.create(difficulty: "easy", game_id: Game.first.id, body: "What kind of house does Squidward live in?", answer: "An Easter Island Head", choices: ["An Easter Island Head","A Bucket", "Under a rock"])
