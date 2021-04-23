@@ -3,6 +3,12 @@ body, html{
   background-image: url(https://images7.alphacoders.com/108/thumbbig-1081503.jpg);
   background-repeat: no-repeat;
   background-size: cover; 
+  border: black;
+  border-radius: 10px;
+}
+
+.content{
+   text-align: center;
 }
 
 .container {
@@ -13,6 +19,8 @@ body, html{
     background: #515DA2;
     opacity: .8;
     margin: 0 auto;
+
+
   }
 
 .card {
@@ -26,7 +34,7 @@ body, html{
     display: none;
     margin: 1rem 2rem;
     background-color: #999966;
-    
+ 
   }
 
 .btn-easy {
@@ -63,6 +71,7 @@ body, html{
 #loginbtndiv{
   text-align: center;
 }
+
 .login {
   display: none;
   width: 500px;

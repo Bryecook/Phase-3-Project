@@ -10,6 +10,7 @@ class Api::V1::RoundsController < ApplicationController
         render json: round
     end
 
+<<<<<<< HEAD
     def show
         round = Round.find(params[:id])
         render json: round
@@ -24,6 +25,10 @@ class Api::V1::RoundsController < ApplicationController
     def destroy
         round = Round.find(params[:id])
         round.destroy
+=======
+    def update
+        round = Round.find(params[:id])
+>>>>>>> corisbranch5
         render json: round
     end
 end

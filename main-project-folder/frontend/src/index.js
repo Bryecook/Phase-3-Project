@@ -10,6 +10,7 @@ let usernameArray =[];
 let currentUser;
 let userRounds = [];
 
+
 const menuRender = () => {
     loginBtn = document.querySelector('#loginbtn')
     loginDiv = document.querySelector('#login')
@@ -376,28 +377,39 @@ const viewPastRounds = (userRounds) => {
     div.append(retryBtn, logoutBtn)
 }
 
+// const timer = () => {
+//     //once quiz is initiated start timer
+//     //insert into easy & difficult event listener
+//     let div = document.querySelector("#menu")
+//     let timerDisplay = document.createElement("p")
+//     timerDisplay.innerText = `You have ${timeLeft} seconds left to play!;`
 
-const timer = (difficultySelection, easyQuiz) => {
-    //once quiz is initiated start timer
-    //insert into easy & difficult function
-    let timer = document.querySelector("timer")
-    timer.innerHTML = '<div>${count}</div>'
-    let total_seconds = 60*2
-    let timeLeft = 120; // In seconds
-    let timerId = setInterval(countdown, 1000);
+//     // let total_seconds = 60*2
+//     let timeLeft = 120; // In seconds
+//     // let timerId = setInterval(countdown, 1000);
     
-    function countdown() {
-        if (timeLeft == -1) {
-            clearTimeout(timerId);
-            // do something
-        } else {
-            console.log(timeLeft + ' seconds remaining');
-            timeLeft--;
-        }
-    }
-    countdown()
-}
+//     div.append(timerDisplay)
+
+//     function countdown() {
+//         setInterval(function(){
+//             if (timeLeft <= 0){ //if time left less than zero stop timer
+//                 clearInterval(timeLeft = 0)
+//             }
+//             timeLeft -=1 //decrement time by 1
+//         }, 1000)
+//         } 
+//          {
+//         //display time left
+//             timeLeft--;
+//         }
+// }
+
+    
+
+
+
 
 fetchUsers()
 menuRender()
+
 
