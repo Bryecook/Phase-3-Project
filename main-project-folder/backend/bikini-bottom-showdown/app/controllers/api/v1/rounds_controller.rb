@@ -8,4 +8,9 @@ class Api::V1::RoundsController < ApplicationController
         round = Round.create(user_id: params[:user_id], game_id: params[:game_id], score: params[:score]) 
         render json: round
     end
+
+    def update
+        round = Round.find(params[:id])
+        render json: round
+    end
 end
