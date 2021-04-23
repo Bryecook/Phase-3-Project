@@ -16,7 +16,7 @@ Bikini Bottom Showdown
 
 #Model functions
 
-##User can be created, can login/logout (no authenication), updated high score, and delete.
+##User can be created, can login/logout (no authenication), & view past rounds.
 ##Questions can be read.
 ##Rounds can be created, updated score total, read, and deleted.
 ##Games can be read. 
