@@ -16,7 +16,8 @@ class Api::V1::RoundsController < ApplicationController
     end
 
     def update
-        round = Round.update(score: params[:score])
+        round = Round.find(params[:id])
+        round.update(score: params[:score])
         render json: round
     end
 

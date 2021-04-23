@@ -326,6 +326,14 @@ const renderScore = () => {
     logoutBtn.innerText = "Logout"
     pastRoundsBtn = document.createElement('button')
     pastRoundsBtn.innerText = "View Past Rounds"
+    // deleteUserBtn = document.createElement('button')
+    // deleteUserBtn.innerText = "Delete account"
+    // deleteUserBtn.addEventListener('click', (e) => {
+    //     fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`,{
+    //         method: "DELETE"
+    //     })
+    //     location.reload()
+    // })
     div.append(endTitle, retryBtn, pastRoundsBtn, logoutBtn)
 
     retryBtn.addEventListener('click', (e) =>{
@@ -343,18 +351,19 @@ const renderScore = () => {
 }
 
 const roundList = (object) => {
+    console.log(object)
     div = document.querySelector('#menu')
     li = document.createElement('li')
     li.innerText = object.score
-    // deleteRoundBtn = document.createElement('button')
-    // deleteRoundBtn.innerText = "X"
-    // deleteRoundBtn.addEventListener('click', (e) => {
-    //     fetch(`http://localhost:3000/api/v1/rounds/${round.id}`,{
-    //         method: "DELETE"
-    //     })
-    //     fetchRounds()
-    // })
-    // li.append(deleteRoundBtn)
+    deleteRoundBtn = document.createElement('button')
+    deleteRoundBtn.innerText = "X"
+    deleteRoundBtn.addEventListener('click', (e) => {
+        fetch(`http://localhost:3000/api/v1/rounds/${object.id}`,{
+            method: "DELETE"
+        })
+        fetchRounds()
+    })
+    li.append(deleteRoundBtn)
     div.append(li)
 }
 const viewPastRounds = (userRounds) => {
@@ -364,6 +373,7 @@ const viewPastRounds = (userRounds) => {
     scorePageTitle.innerText = "Past Scores"
     div.append(scorePageTitle)
     userRounds.forEach(roundList)
+    div.append(retryBtn, logoutBtn)
 }
 
 
